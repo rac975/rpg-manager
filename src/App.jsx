@@ -1,55 +1,33 @@
 import { useState } from "react"
+import Login from "./pages/Auth/Login/Login"
+import Dashboard from "./pages/Dashboard/Dashboard"
 import "./App.css"
 
 function App() {
+  const [usuarioLogado, setUsuarioLogado] = useState('')
 
-  const [usuario, setUsuario] = useState('')
-  const [senha, setSenha] = useState('')
+  const handleLoginSucesso = (nome) => {
+    setUsuarioLogado(nome);
+  }
 
-  const acessLogin = () => {
-    if (usuario === "")
-      alert ("Por favor, diga seu nome viajante!");
-    if (usuario === "Mestre" && senha === "1234")
-      alert ("Bem-vindo à Dungeon, "+ usuario + "!");
-    else
-      alert("Usuário ou Senha incorretos, viajante.")
+  const handleLogout = () => {
+    setUsuarioLogado(null)
   }
 
   return (
     <div className="app-container">
-      <div className="login_container">
-        <div className="login-title">
-          <h1>RPG Manager</h1>
-        </div>
-        <div className="login-group input-row">
-          <label className="label-login">Usuário: </label>
-          <input
-            type="text"
-            placeholder="Digite seu nome, viajante..."
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-          />
-        </div>
-        <div className="login-group input-row">
-          <label className="label-login">Senha: </label>
-          <input 
-          type="password" 
-          placeholder="Digite seu feitiço secreto..."
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          />
-        </div>
-
-        <div className="buttons-group">
-          <button className="login-button" onClick={acessLogin}>Entrar na Dungeon</button>
-          <button className="signin-button">Criar conta</button>
-        </div>
-
-        <div className="forgot-group">
-          <p className="forgot-password">Memória nublada?</p><a href="#">Clique aqui!</a>
-        </div>
-      </div>
-    </div>
+      {usuarioLogado ? (
+        <Dashboard
+          nomeUsuario={usuarioLogado}
+          aoSair={handleLogout}
+        />
+      ) : (
+        <Login
+          aoLogar={handleLoginSucesso}
+        />
+      )
+      }
+    </div >
   )
 }
 
