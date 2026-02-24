@@ -1,24 +1,18 @@
 import React from 'react'
+import "./Dashboard.css";
 
-function Dashboard({nomeUsuario, aoSair}) {
+function Dashboard() {
 return (
     <div className="dashboard-container">
-      <header>
-        <h1>Painel do Mestre</h1>
-        <p>Bem-vindo, <strong>{nomeUsuario}</strong>!</p>
-      </header>
-
-      <main>
-        <div className="card">
+      <main className='main-container'>
+        <div className='main-header'>
           <h3>Seus Personagens</h3>
+          <button className="add-button">+ Adicionar Personagem</button>
+        </div>
+        <div className="card">
           <p>Nenhum herói encontrado na taverna...</p>
-          <button className="add-button">+ Criar Novo Personagem</button>
         </div>
       </main>
-
-      <button className="logout-button" onClick={aoSair}>
-        Sair do Sistema
-      </button>
     </div>
   );
 }

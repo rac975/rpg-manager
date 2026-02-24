@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { Route, Routes } from "react-router-dom"
 import Login from "./pages/Auth/Login/Login"
 import Dashboard from "./pages/Dashboard/Dashboard"
+import MainLayout from "./layouts/MainLayout"
 import "./App.css"
 
 function App() {
@@ -15,18 +17,18 @@ function App() {
   }
 
   return (
-    <div className="app-container">
+    <div className={ usuarioLogado ? "app-main-flow" : "app-auth-flow"}>
       {usuarioLogado ? (
-        <Dashboard
-          nomeUsuario={usuarioLogado}
-          aoSair={handleLogout}
-        />
+        <Routes>
+          <Route path="/" element={<MainLayout nomeUsuario={usuarioLogado} aoSair={handleLogout} />} >
+            <Route index element={<Dashboard />} />
+          </Route>
+        </Routes>
       ) : (
         <Login
           aoLogar={handleLoginSucesso}
         />
-      )
-      }
+      )}
     </div >
   )
 }
